@@ -433,23 +433,23 @@ boolean PubSubClient::loop() {
     return false;
 }
 
-boolean PubSubClient::publish(const char* topic, const char* payload) {
+uint16_t PubSubClient::publish(const char* topic, const char* payload) { //DANI: changed return type to uint16_t
     return publish(topic,(const uint8_t*)payload, payload ? strnlen(payload, this->bufferSize) : 0,false);
 }
 
-boolean PubSubClient::publish(const char* topic, const char* payload, boolean retained) {
+uint16_t PubSubClient::publish(const char* topic, const char* payload, boolean retained) { //DANI: changed return type to uint16_t
     return publish(topic,(const uint8_t*)payload, payload ? strnlen(payload, this->bufferSize) : 0,retained);
 }
 
-boolean PubSubClient::publish(const char* topic, const uint8_t* payload, unsigned int plength) {
+uint16_t PubSubClient::publish(const char* topic, const uint8_t* payload, unsigned int plength) { //DANI: changed return type to uint16_t
     return publish(topic, payload, plength, false);
 }
 
-boolean PubSubClient::publish(const char* topic, const uint8_t* payload, unsigned int plength, boolean retained) {
+uint16_t PubSubClient::publish(const char* topic, const uint8_t* payload, unsigned int plength, boolean retained) { //DANI: changed return type to uint16_t
     if (connected()) {
         if (this->bufferSize < MQTT_MAX_HEADER_SIZE + 2+strnlen(topic, this->bufferSize) + plength) {
             // Too long
-            return false;
+            return 0; //DANI: Changed to 0
         }
         // Leave room in the buffer for header and variable length field
         uint16_t length = MQTT_MAX_HEADER_SIZE;
@@ -466,9 +466,9 @@ boolean PubSubClient::publish(const char* topic, const uint8_t* payload, unsigne
         if (retained) {
             header |= 1;
         }
-        return write(header,this->buffer,length-MQTT_MAX_HEADER_SIZE);
+        if (write(header,this->buffer,length-MQTT_MAX_HEADER_SIZE)) return length-MQTT_MAX_HEADER_SIZE; //DANI: changed to return mqtt actual message length
     }
-    return false;
+    return 0; //DANI: Changed to 0
 }
 
 boolean PubSubClient::publish_P(const char* topic, const char* payload, boolean retained) {

@@ -148,10 +148,10 @@ public:
    boolean connect(const char* id, const char* user, const char* pass, const char* willTopic, uint8_t willQos, boolean willRetain, const char* willMessage);
    boolean connect(const char* id, const char* user, const char* pass, const char* willTopic, uint8_t willQos, boolean willRetain, const char* willMessage, boolean cleanSession);
    void disconnect();
-   boolean publish(const char* topic, const char* payload);
-   boolean publish(const char* topic, const char* payload, boolean retained);
-   boolean publish(const char* topic, const uint8_t * payload, unsigned int plength);
-   boolean publish(const char* topic, const uint8_t * payload, unsigned int plength, boolean retained);
+   uint16_t publish(const char* topic, const char* payload); //DANI: changed return type to uint16_t
+   uint16_t publish(const char* topic, const char* payload, boolean retained); //DANI: changed return type to uint16_t
+   uint16_t publish(const char* topic, const uint8_t * payload, unsigned int plength); //DANI: changed return type to uint16_t
+   uint16_t publish(const char* topic, const uint8_t * payload, unsigned int plength, boolean retained); //DANI: changed return type to uint16_t
    boolean publish_P(const char* topic, const char* payload, boolean retained);
    boolean publish_P(const char* topic, const uint8_t * payload, unsigned int plength, boolean retained);
    // Start to publish a message.
