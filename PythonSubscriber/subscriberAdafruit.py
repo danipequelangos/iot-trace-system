@@ -4,7 +4,7 @@ import hashlib
 
 # Configuración MQTT (Cambia estos valores por los tuyos)
 AIO_USERNAME = "usuario"
-AIO_KEY = "aio_SHFD65fin3qgTLgH7pnecB18FpR9"
+AIO_KEY = "yourkey"
 AIO_FEED = f"{AIO_USERNAME}/feeds/GPSJsonTest"
 AIO_SERVER = "io.adafruit.com"
 AIO_PORT = 8883
